@@ -15,15 +15,8 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   namespace :api do
-    resources :leaderboards, only: [] do
-      collection do
-        post "submit"
-        get "top"
-      end
-      member do
-        get "rank"
-      end
-    end
+    get "leaderboard/top", to: "leaderboard#top"
+    post "leaderboard/submit", to: "leaderboard#submit"
+    get "leaderboard/rank/:user_id", to: "leaderboard#rank"
   end
-
 end
