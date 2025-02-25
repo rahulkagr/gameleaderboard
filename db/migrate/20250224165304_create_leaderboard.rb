@@ -1,7 +1,7 @@
 class CreateLeaderboard < ActiveRecord::Migration[8.0]
   def change
     create_table :leaderboards do |t|
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false
       t.integer :total_score, null: false
       t.integer :rank
 
