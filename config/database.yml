@@ -5,8 +5,9 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
+  adapter: postgresql
+  pool: 20
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   username: gameleaderboard
@@ -15,7 +16,7 @@ default: &default
 
 development:
   <<: *default
-  database: gameleaderboard
+  database: gameleaderboard_db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

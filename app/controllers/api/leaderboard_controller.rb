@@ -1,7 +1,7 @@
 module Api
   class LeaderboardController < ApplicationController
     def submit
-      response = SubmitScoreService.new(params).call
+      response = SubmitScoreService.new(params, current_user).call
       render json: { data: response }
     end
 
@@ -16,6 +16,10 @@ module Api
     end
   end
 end
+
+# which to index rank or score -- depends on fetch top method
+# if rank is cached then invalidation is difficult
+# api key approach
 
 # TODO
 # 1. use caching/redis

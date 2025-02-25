@@ -64,4 +64,6 @@ end
 
 gem "byebug"
 
-gem "mysql2"
+gem 'pg', '~> 1.5', '>= 1.5.8'
+gem 'newrelic_rpm'
+gem 'redis'

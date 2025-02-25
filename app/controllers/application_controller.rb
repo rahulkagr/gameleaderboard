@@ -4,9 +4,32 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery unless: -> { request.format.json? }
 
+  before_action :authenticate_user
+  before_action :rate_limit_user
   around_action :exception_handling
 
+  attr_reader :current_user
+
   private
+
+  def authenticate_user
+    token = request.headers["auth-token"]
+    @current_user = User.find_by(authtoken: token)
+    render json: { error: "Unauthorized" }, status: :unauthorized unless @current_user
+  end
+
+  def rate_limit_user
+    return unless current_user
+
+    key = "rate_limit:#{current_user.id}"
+    last_request_time = $redis.get(key)
+
+    if last_request_time && Time.now.to_f - last_request_time.to_f < 5
+      render json: { error: "Too many requests. Please wait a few seconds." }, status: :too_many_requests
+    else
+      $redis.set(key, Time.now.to_f, ex: 5)
+    end
+  end
 
   def exception_handling
     begin
