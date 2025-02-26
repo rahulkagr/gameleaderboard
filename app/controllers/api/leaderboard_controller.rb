@@ -6,8 +6,7 @@ module Api
     end
 
     def top
-      response = TopPlayerFetchService.new().call
-      render json: { data: response }
+      @response = TopPlayerFetchService.new().call
     end
 
     def rank

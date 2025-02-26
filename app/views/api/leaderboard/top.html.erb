@@ -1,0 +1,20 @@
+<h1>Top 10 Leaderboard</h1>
+
+<table style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th style="padding: 15px;">User ID</th>
+      <th style="padding: 15px;">Rank</th>
+      <th style="padding: 15px;">Total Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @response.each do |l| %>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><%= l[:user_id] %></td>
+        <td style="padding: 10px; border: 1px solid #ddd;"><%= l[:rank] %></td>
+        <td style="padding: 10px; border: 1px solid #ddd;"><%= l[:total_score] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
